@@ -1,0 +1,25 @@
+{
+    "name": "wmwallet/wm-wallet-sdk",
+    "description": "WM Wallet SDK for PHP",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^7.0",
+        "phpseclib/phpseclib": "^3.0",
+        "brick/math": "^0.9.0",
+      "ext-json": "*",
+      "ext-openssl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wmwallet\\SDK\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "WM Wallet"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
+}
