@@ -10,7 +10,7 @@ class CreateOrderReq
     public string $fiat_amount;
     public string $symbol;
     public string $callback_url;
-    public string $exchangeRate;
+    public string $exchange_rate;
     public string $amount;
 
     public function __construct($sourceId, $chainId, $coinId, $fiatAmount, $symbol, $callbackUrl, $exchangeRate = "", $amount = "")
@@ -21,7 +21,7 @@ class CreateOrderReq
         $this->fiat_amount = $fiatAmount;
         $this->symbol = $symbol;
         $this->callback_url = $callbackUrl;
-        $this->exchangeRate = $exchangeRate;
+        $this->exchange_rate = $exchangeRate;
         $this->amount = $amount;
     }
 }
