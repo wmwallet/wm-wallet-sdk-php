@@ -60,6 +60,72 @@ class WmWalletSDK
     }
 
     /**
+     * @throws Exception
+     */
+    public static function initContent(array $config = []): WmWalletSDK
+    {
+        $config = array_merge([
+            'customer' => '',
+            'caCertContent' => '',
+            'certContent' => '',
+            'keyContent' => '',
+            'secretContent' => '',
+        ], $config);
+        if (empty($config['customer'])) {
+            throw new Exception('Config miss customer');
+        }
+        if (empty($config['caCertContent'])) {
+            throw new Exception('Config miss caCertContent');
+        }
+        if (empty($config['certContent'])) {
+            throw new Exception('Config miss certContent');
+        }
+        if (empty($config['keyContent'])) {
+            throw new Exception('Config miss keyContent');
+        }
+        if (empty($config['secretContent'])) {
+            throw new Exception('Config miss secretContent');
+        }
+
+        $sslDir = __DIR__ . '/wm-wallet/cache/ssl/';
+        if (!is_dir($sslDir)) {
+            if (!mkdir($sslDir, 0755, true)) {
+                throw new Exception("Unable to create cache directory: {$sslDir}");
+            }
+        }
+
+        $caCertPath = $sslDir . 'caCertPath';
+        $result = file_put_contents($caCertPath, $config['caCertContent']);
+        if ($result === false) {
+            throw new Exception("fail to write to file: {$caCertPath}");
+        }
+        $certPath = $sslDir . 'certPath';
+        $result = file_put_contents($certPath, $config['certContent']);
+        if ($result === false) {
+            throw new Exception("fail to write to file: {$certPath}");
+        }
+        $keyPath = $sslDir . 'keyPath';
+        $result = file_put_contents($keyPath, $config['keyContent']);
+        if ($result === false) {
+            throw new Exception("fail to write to file: {$certPath}");
+        }
+        $secretPath = $sslDir . 'secretPath';
+        $result = file_put_contents($secretPath, $config['secretContent']);
+        if ($result === false) {
+            throw new Exception("fail to write to file: {$certPath}");
+        }
+
+        $initConfig = [
+            'customer' => $config['customer'],
+            'caCertPath' => $caCertPath,
+            'certPath' => $certPath,
+            'keyPath' => $keyPath,
+            'secretPath' => $secretPath,
+        ];
+        return self::init($initConfig);
+    }
+
+    /**
      * @throws Exception|GuzzleException
      */
     public function post($request)
